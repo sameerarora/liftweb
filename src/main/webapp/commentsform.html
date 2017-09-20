@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+    <title>Blog Comments</title>
+</head>
+<body data-lift-content-id="main">
+<div id="main" data-lift="surround?with=default;at=content">
+    <p>
+        This is a super useless blog written for the sake of a comments box below, in order to
+        demonstrate the Comet functionality in LiftWeb
+    </p>
+
+    <form data-lift="form.ajax">
+        <input type="text" data-lift="CommentSnippet" id="message" placeholder="Leave a comment"/>
+    </form>
+
+    <div data-lift="comet?type=CommentRenderer">
+        <ul>
+            <li>A message</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

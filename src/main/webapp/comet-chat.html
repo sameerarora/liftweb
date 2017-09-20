@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+    <title>Comet Chat Example</title>
+</head>
+<body data-lift-content-id="main">
+<div id="main" data-lift="surround?with=default;at=content">
+
+    <form data-lift="form.ajax">
+        <input type="text" data-lift="ChatSnippet" id="message" placeholder="Type a message"/>
+    </form>
+
+    <div data-lift="comet?type=ChatClient">
+        <ul>
+            <li>A message</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

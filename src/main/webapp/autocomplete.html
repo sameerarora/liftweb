@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+    <title>Autocomplete</title>
+</head>
+<body data-lift-content-id="main">
+<div id="main" data-lift="surround?with=default;at=content">
+
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.js" data-lift="head"></script>
+
+    <h3>Select a Programming Language</h3>
+
+    <p>From: Scala, Scheme, Smalltalk, SuperCollider, Java, JavaScript, C, C++, Clojure, CoffeeScript, POP-11, Prolog,
+        Python, Processing.</p>
+
+    <form data-lift="SuggestLanguages?form=post">
+        <input id="autocomplete">
+        <input type="submit">
+    </form>
+
+    <!--<div id="result">Chosen Language will be echoed here</div>-->
+
+</div>
+</body>

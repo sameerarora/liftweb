@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Classic Form Example</title>
+</head>
+<body data-lift-content-id="main">
+<div id="main" data-lift="surround?with=default;at=content">
+    <div id="result" data-lift="ClassicForm">
+        Your name will be echoed here
+    </div>
+    <form data-lift="ClassicForm.submit" method="post">
+        <input type="text" name="firstName" placeholder="First Name">
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>
