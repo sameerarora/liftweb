@@ -2,8 +2,7 @@ package com.xebia.snippet
 
 import com.xebia.persistence.MySchema._
 
-import net.liftweb.util._
-import Helpers._
+import net.liftweb.util.Helpers._
 import net.liftweb.squerylrecord.RecordTypeMode._
 import net.liftweb.common.Loggable
 
@@ -41,15 +40,15 @@ class OneToManySnippet extends Loggable {
     import org.squeryl.Session
     Session.currentSession.setLogger(s => logger.info(s))
 
-
-    // Doing this here means we will duplicate the association each time the snippet runs:
-    logger.info("Creating Mars Express record")
-    val express = Satellite.createRecord.name("Mars Express")
-    mars.satellites.associate(express)
-    allPlanets.foreach(x => println(s".......... ${x.name.toString()}"))
-    "#planets-and-their-moons" #> allPlanets.map { p =>
-      ".planet-name *" #> p.name.toString() &
-        ".satellite-name *" #> p.satellites.map(_.name.toString())
+    inTransaction {
+      // Doing this here means we will duplicate the association each time the snippet runs:
+      logger.info("Creating Mars Express record")
+      val express = Satellite.createRecord.name("Mars Express")
+      mars.satellites.associate(express)
+      "#planets-and-their-moons" #> allPlanets.map { p =>
+        ".planet-name *" #> p.name.toString() &
+          ".satellite-name *" #> p.satellites.map(_.name.toString())
+      }
     }
   }
 }

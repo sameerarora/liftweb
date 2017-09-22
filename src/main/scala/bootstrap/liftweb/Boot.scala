@@ -6,6 +6,8 @@ import net.liftweb.http.{Html5Properties, InternalServerErrorResponse, LiftRules
 import net.liftweb.sitemap.{Menu, SiteMap}
 import net.liftweb.util.{LiftFlowOfControlException, LoanWrapper}
 
+import scala.util.{Failure, Success, Try}
+
 class Boot {
 
   def boot {
@@ -56,6 +58,10 @@ class Boot {
           // If you want to enable logging everywhere:
           // import org.squeryl.Session
           // Session.currentSession.setLogger( s => logger.info(s) )
+          Try(f) match {
+            case Success(r) => r
+            case Failure(ex) => throw ex
+          }
           try {
             Right(f)
           } catch {

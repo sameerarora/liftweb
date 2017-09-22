@@ -2,31 +2,19 @@ package com.xebia.persistence
 
 import java.sql.DriverManager
 
+import net.liftweb.common._
+import net.liftweb.squerylrecord.RecordTypeMode._
+import net.liftweb.squerylrecord.SquerylRecord
+import org.specs2.execute.{AsResult, Result}
+import org.specs2.mutable.Around
 import org.squeryl.Session
 import org.squeryl.adapters.H2Adapter
-import net.liftweb.util.StringHelpers
-import net.liftweb.common._
-import net.liftweb.http.{LiftSession, Req, S}
-import net.liftweb.squerylrecord.SquerylRecord
-import net.liftweb.squerylrecord.RecordTypeMode._
-import org.specs2.mutable.Around
-import org.specs2.execute.{AsResult, Result}
-import org.specs2.matcher.MatchResult
 
-trait TestLiftSession {
-  def session = new LiftSession("", StringHelpers.randomString(20), Empty)
-
-  def inSession[T](a: => T): T = S.init(Full(Req.nil), session)(a)
-}
+import scala.util.{Success, Try}
 
 trait DBTestKit extends Loggable {
 
   Class.forName("org.h2.Driver")
-
-  Logger.setup = Full(net.liftweb.util.LoggingAutoConfigurer())
-  Logger.setup.foreach {
-    _.apply()
-  }
 
   def configureH2() = {
     SquerylRecord.initWithSquerylSession(
@@ -38,28 +26,26 @@ trait DBTestKit extends Loggable {
 
   def createDb() {
     inTransaction {
-      try {
+      Try {
         MySchema.drop
         MySchema.create
-      } catch {
-        case e: Throwable =>
-          logger.error("DB Schema error", e)
-          throw e
+      } match {
+        case Success(_) =>
+        case scala.util.Failure(ex) => throw ex
       }
     }
   }
 
 }
 
-case class InMemoryDB() extends Around with DBTestKit with TestLiftSession {
+case class InMemoryDB() extends Around with DBTestKit {
 
   override def around[T](testToRun: => T)(implicit ev: AsResult[T]): Result = {
     configureH2
     createDb
-    inSession {
-      inTransaction {
-        AsResult(testToRun)
-      }
+    inTransaction {
+      Session.currentSession.setLogger(s => logger.info(s))
+      AsResult(testToRun)
     }
   }
 }

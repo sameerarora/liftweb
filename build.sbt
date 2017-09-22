@@ -22,7 +22,9 @@ libraryDependencies ++={
     "net.liftmodules" %% "widgets_3.0" % "1.4.1",
     "com.h2database" % "h2" % "1.3.170",
     "net.liftweb" %% "lift-squeryl-record" % liftVersion,
-    "org.specs2" % "specs2-core_2.12" % "3.9.5" % "test"
+    "org.specs2" % "specs2-core_2.12" % "3.9.5" % "test",
+    "org.scalatest" % "scalatest_2.12" % "3.0.4" % "test",
+    "net.liftweb" %% "lift-testkit" % liftVersion % "test"
   )
 }
 

@@ -79,7 +79,7 @@ package object liftweb {
     import org.squeryl.Session
 
     SquerylRecord.initWithSquerylSession(Session.create(
-      DriverManager.getConnection("jdbc:h2:mem:lift_proto;DB_CLOSE_DELAY=-1", "sa", ""),
+      DriverManager.getConnection("jdbc:h2:mem:solar_system;DB_CLOSE_DELAY=-1", "sa", ""),
       new H2Adapter))
   }
 

@@ -12,13 +12,13 @@ class ChatClient extends CometActor with CometListener {
   override def lowPriority = {
     case xs: Vector[String] =>
       msgs = xs
+      //TODO which component calls the render function
       reRender()
   }
 
   def render = "li *" #> msgs
 
 }
-
 
 object ChatServer extends LiftActor with ListenerManager {
 

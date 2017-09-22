@@ -13,11 +13,11 @@ object ItemResource extends RestHelper {
     "greeting" -> ("HELLO " + name.toUpperCase)
 
   serve {
-    case "shout" :: Nil JsonPost json -> request =>
-      for {JString(name) <- (json \\ "name").toOpt}
-        yield greet(name)
+    case "shout" :: Nil JsonPost ((json, req)) => greet((json \ "name").extract[String])
 
     case "yippie" :: Nil JsonGet _ => JString("Yuhuuu")
+
   }
 
 }
+
